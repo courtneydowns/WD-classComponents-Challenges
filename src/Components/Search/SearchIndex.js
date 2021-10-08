@@ -1,21 +1,51 @@
-import React from 'react';
-import {Input} from 'reactstrap';
- 
-const SearchIndex extends Component() {
-   this.state = {
-     things: ['pen', 'marker', 'eraser', 'notebook', 'pencil', 'scissors', 'highlighter', 'stapler', 'paper clip', 'binder', 'hole punch', 'laminator', 'laminating sheets', 'protective sheets', 'index cards']
-   }
- }
+import React, { Component } from "react";
+import { Input } from "reactstrap";
 
- function searchFunction() {
- }
+class SearchIndex extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      things: [
+        "pen",
+        "marker",
+        "eraser",
+        "notebook",
+        "pencil",
+        "scissors",
+        "highlighter",
+        "stapler",
+        "paper clip",
+        "binder",
+        "hole punch",
+        "laminator",
+        "laminating sheets",
+        "protective sheets",
+        "index cards",
+      ],
+      filtered: "",
+    };
+  }
 
- render() {
-     <div>
-       <Input placeholder='Search Here' />
-       <h3>Results:</h3>
-     </div>
- }
+  searchFunction = (e) => {
+    this.setState({ filtered: e.target.value });
+    console.log(this.state.filtered);
+  };
 
- 
-export SearchIndex;
+  render() {
+    return (
+      <div>
+        <Input placeholder="Search Here" onChange={this.searchFunction} />
+        <h3>Results:</h3>
+        <ul>
+          {this.state.things
+            .filter((item) => item.includes(this.state.filtered))
+            .map((thing) => (
+              <li key={thing}>{thing}</li>
+            ))}
+        </ul>
+      </div>
+    );
+  }
+}
+
+export default SearchIndex;
